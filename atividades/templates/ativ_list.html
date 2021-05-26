@@ -1,0 +1,48 @@
+{% extends 'content.html' %}
+
+{% block content %}
+	{% if msg %}
+		<div class="alert alert-dark" role="alert">{{ msg }}</div>
+	{% endif %}
+	<h1>Lista de Atividades</h2>
+	<a class="btn btn-primary btn-sm col-2" href="{% url 'create' %}" role="button">
+	        <span class="text-light text-center">Nova Atividade</span>
+	</a>
+        {% if atividades %}
+	<table class="table table-striped">
+		<thead class="table-dark">
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Descricao</th>
+				<th scope="col">Data/Hora de Início</th>
+				<th scope="col">Data/Hora de Término</th>
+				<th scope="col">Ações<th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for atividade in atividades %}
+			<tr>
+				<th scope="row">{{ atividade.id }}</th>
+				<td>{{ atividade.descricao }}</td>
+				<td>{{ atividade.data_inicial|date:'H:i:s, d/m/Y' }}</td>
+				<td>{{ atividade.data_final|date:'H:i:s, d/m/Y' }}</td>
+				<td>
+					<a class="btn btn-primary btn-sm" href="{% url 'read' atividade.id %}" role="button">
+                                                <span class="text-light text-center"><i class="fas fa-eye"></i></span>
+                                        </a>
+					<a class="btn btn-warning btn-sm" href="{% url 'atualiza' atividade.id %}" role="button">
+						<span class="text-light text-center"><i class="far fa-edit"></i></span>
+					</a>
+					<a class="btn btn-danger btn-sm" href="{% url 'delete' atividade.id %}" role="button">
+						<span class="text-light text-center"><i class="far fa-trash-alt"></i></span>
+					</a>
+				</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+	{% else %}
+	<h2>Sem Atividades cadastradas</h2>
+	{% endif %}
+{% endblock %}
+

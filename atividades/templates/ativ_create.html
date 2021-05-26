@@ -1,0 +1,12 @@
+{% extends 'content.html' %}
+
+{% block content %}
+	<h1>Atividade</h1>
+	<form action="{% url 'create' %}" method="post">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit" class="btn btn-primary">Salvar</button>
+		<button type="reset" class="btn btn-danger">Reset</button>
+	</form>
+
+{% endblock %}

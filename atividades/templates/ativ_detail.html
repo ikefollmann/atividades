@@ -1,0 +1,35 @@
+{% extends 'content.html' %}
+
+{% block content %}
+	<h1>Atividades</h2>
+        <table class="table table-striped">
+                <thead class="table-dark">
+                        <tr>
+                                <th scope="col">Field</th>
+                                <th scope="col">Value</th>
+                        </tr>
+                </thead>
+                <tbody>
+                        <tr>
+                                <th scope="row">Id</th>
+                                <td>{{ atividade.id }}</td>
+                        </tr>
+			<tr>
+                                <th scope="row">Descricao</th>
+                                <td>{{ atividade.descricao }}</td>
+                        </tr>
+			<tr>
+                                <th scope="row">Data Inicial</th>
+                                <td>{{ atividade.data_inicial|date:'H:i:s, d/m/Y' }}</td>
+                        </tr>
+			<tr>
+                                <th scope="row">Data Final</th>
+                                <td>{{ atividade.data_final|date:'H:i:s, d/m/Y' }}</td>
+                        </tr>
+                </tbody>
+        </table>
+	<a class="btn btn-primary btn-sm col-2" href="{% url 'lista' %}" role="button">
+                <span class="text-light text-center">Voltar</span>
+        </a>	
+{% endblock %}
+
