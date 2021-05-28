@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from .models import Atividade
+from .models import Atividade, Relatorio
 from .forms import AtivForm
+import json
 
 # Create your views here.
 def index(request):
@@ -74,3 +75,30 @@ def ativ_create(request):
         "form": form
     }
     return render(request, 'ativ_create.html', context)
+
+def rel_selec(request):
+    if request.method == "POST":
+        if request.POST.get('dateinput'):
+            dia = request.POST.get('dateinput')
+            dados = Relatorio.getDia(dia)
+            context = {
+                "relatorioDia": dados
+            }
+            return render(request, 'rel_select.html', context)
+        elif request.POST.get('seleinput'):
+            descricao = request.POST.get('seleinput')
+            dados = Relatorio.getRel(descricao)
+            context = {
+                "relatorioDes": dados
+            }
+            return render(request, 'rel_select.html', context)
+    else:
+        atividades = Atividade.objects.all()
+        ativ = []
+        for atividade in atividades:
+            if atividade not in ativ:
+                ativ.append(atividade)
+        context = {
+            "atividades": ativ
+        }
+        return render(request, 'rel_select.html', context)

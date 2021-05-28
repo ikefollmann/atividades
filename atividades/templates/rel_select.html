@@ -1,0 +1,64 @@
+{% extends 'content.html' %}
+
+{% block content %}
+	{% if relatorioDia %}
+	<table class="table table-striped">
+                <thead class="table-dark">
+                        <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Descrição</th>
+                                <th scope="col">Tempo Despendido</th>
+                        </tr>
+                </thead>
+                <tbody>
+                {% for key, atividade in relatorioDia %}
+                        <tr>
+                                <th scope="row">{{ key }}</th>
+                                <td>{{ atividade.0 }}</td>
+                                <td>{{ atividade.1 }}</td>
+                        </tr>
+                {% endfor %}
+                </tbody>
+        </table>
+	{% elif relatorioDes %}
+	<table class="table table-striped">
+                <thead class="table-dark">
+                        <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Descrição</th>
+                                <th scope="col">Tempo Despendido</th>
+                        </tr>
+                </thead>
+                <tbody>
+                {% for key, atividade in relatorioDes %}
+                        <tr>
+                                <th scope="row">{{ key }}</th>
+                                <td>{{ atividade.0 }}</td>
+                                <td>{{ atividade.1 }}</td>
+                        </tr>
+                {% endfor %}
+                </tbody>
+        </table>
+	{% else %}
+	<h1>Relatórios</h2>
+	<h2>Relatório por Dia</h2>
+	<form action="{% url 'relatorio' %}" method="post">
+                {% csrf_token %}
+                <input type="date" class="form-control" name="dateinput" id="dateinput"/><br>
+                <button type="submit" class="btn btn-primary">Consultar</button>
+        </form>
+	<h2>Relatório por Projeto</h2>
+	<form action="{% url 'relatorio' %}" method="post">
+                {% csrf_token %}
+                <select class="form-control" name="seleinput" id="seleinput">
+			{% if atividades %}
+				{% for atividade in atividades %}
+					<option value="{{ atividade.descricao }}">{{ atividade.descricao }}</option>
+				{% endfor %}
+			{% endif %}
+		</select><br>
+                <button type="submit" class="btn btn-primary">Consultar</button>
+        </form>
+	{% endif %}
+{% endblock %}
+

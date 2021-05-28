@@ -24,4 +24,5 @@ urlpatterns = [
     path('update/<int:ativ_id>', views.ativ_update, name='atualiza'),
     path('read/<int:ativ_id>', views.ativ_read, name='read'),
     path('create/', views.ativ_create, name='create'),
+    path('relatorios/', views.rel_selec, name='relatorio'),
 ]
